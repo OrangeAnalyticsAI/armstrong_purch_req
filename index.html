@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Purchase Requisition Processor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Purchase Requisition Processor</h1>
+        
+        <!-- Upload Section -->
+        <div class="section">
+            <h2>Upload New File</h2>
+            <form action="/upload" method="post" enctype="multipart/form-data">
+                <div class="upload-area">
+                    <input type="file" name="file" accept=".xlsx,.xls,.csv">
+                    <button type="submit">Upload File</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Files Section -->
+        <div class="section">
+            <h2>Available Files</h2>
+            <div class="files-list">
+                {% if files %}
+                    {% for file in files %}
+                    <div class="file-item">
+                        <span>{{ file }}</span>
+                        <a href="{{ url_for('download_file', filename=file) }}" class="download-btn">Download</a>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p>No files uploaded yet.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+</html> 
